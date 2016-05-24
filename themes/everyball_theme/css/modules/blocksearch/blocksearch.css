@@ -1,30 +1,22 @@
-#search_block_top {
-  padding-top: 50px; }
   #search_block_top #searchbox {
     float: left;
     width: 100%; }
   #search_block_top .btn.button-search {
     background: #333;
     display: block;
-    position: absolute;
-    top: 0;
-    right: 0;
     border: none;
     color: #fff;
     width: 50px;
-    text-align: center;
-    padding: 10px 0 11px 0; }
+    text-align: center;  }
     #search_block_top .btn.button-search span {
       display: none; }
     #search_block_top .btn.button-search:before {
       content: "\f002";
       display: block;
       font-family: "FontAwesome";
-      font-size: 17px;
+      font-size: 20px;
       width: 100%;
       text-align: center; }
-    #search_block_top .btn.button-search:hover {
-      color: #6f6f6f; }
   #search_block_top #search_query_top {
     padding: 13px 60px 13px 13px;
     height: 45px;

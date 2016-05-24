@@ -28,11 +28,10 @@
 {/if}
 	<div class="shopping_cart">
 		<a href="{$link->getPageLink($order_process, true)|escape:'html':'UTF-8'}" title="{l s='View my shopping cart' mod='blockcart'}" rel="nofollow">
-			<b>{l s='Cart' mod='blockcart'}</b>
-			<span class="ajax_cart_quantity{if $cart_qties == 0} unvisible{/if}">{$cart_qties}</span>
-			<span class="ajax_cart_product_txt{if $cart_qties != 1} unvisible{/if}">{l s='Product' mod='blockcart'}</span>
-			<span class="ajax_cart_product_txt_s{if $cart_qties < 2} unvisible{/if}">{l s='Products' mod='blockcart'}</span>
-			<span class="ajax_cart_total{if $cart_qties == 0} unvisible{/if}">
+			<span class="hiddenImp ajax_cart_quantity{if $cart_qties == 0} unvisible{/if}">{$cart_qties}</span>
+			<span class="hiddenImp ajax_cart_product_txt{if $cart_qties != 1} unvisible{/if}">{l s='Product' mod='blockcart'}</span>
+			<span class="hiddenImp ajax_cart_product_txt_s{if $cart_qties < 2} unvisible{/if}">{l s='Products' mod='blockcart'}</span>
+			<span class="hiddenImp ajax_cart_total{if $cart_qties == 0} unvisible{/if}">
 				{if $cart_qties > 0}
 					{if $priceDisplay == 1}
 						{assign var='blockcart_cart_flag' value='Cart::BOTH_WITHOUT_SHIPPING'|constant}

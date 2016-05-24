@@ -89,11 +89,13 @@
 										<img class="logo img-responsive" src="{$logo_url}" alt="{$shop_name|escape:'html':'UTF-8'}"{if isset($logo_image_width) && $logo_image_width} width="{$logo_image_width}"{/if}{if isset($logo_image_height) && $logo_image_height} height="{$logo_image_height}"{/if}/>
 									</a>
 								</div>
-								{capture name='displayNav'}{hook h='displayNav'}{/capture}
-								{if $smarty.capture.displayNav}
-									<nav>{$smarty.capture.displayNav}</nav>
-								{/if}
-								{if isset($HOOK_TOP)}{$HOOK_TOP}{/if}
+								<div class="headerOptions">
+									{if isset($HOOK_TOP)}{$HOOK_TOP}{/if}
+									{capture name='displayNav'}{hook h='displayNav'}{/capture}
+									{if $smarty.capture.displayNav}
+										<nav>{$smarty.capture.displayNav}</nav>
+									{/if}
+								</div>
 							</div>
 						</div>
 					</div>

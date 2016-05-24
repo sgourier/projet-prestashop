@@ -1,8 +1,7 @@
 .header_user_info {
   float: right;
-  border-left: 1px solid #515151;
-  border-right: 1px solid #515151;
   background: #333;
+  height: 46px;
 }
   .header_user_info a {
     color: #fff;
@@ -10,11 +9,11 @@
     display: block;
     padding: 8px 9px 11px 8px;
     cursor: pointer;
-    line-height: 18px; }
+    line-height: 30px; }
     @media (max-width: 479px) {
       .header_user_info a {
         font-size: 11px; } }
     .header_user_info a:hover, .header_user_info a.active {
-      background: #2b2b2b; }
+      color: #6f6f6f; }
 
 /*# sourceMappingURL=blockuserinfo.css.map */
