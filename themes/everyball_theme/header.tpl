@@ -96,6 +96,9 @@
 										<nav>{$smarty.capture.displayNav}</nav>
 									{/if}
 								</div>
+								<div class="subHeaderContainer">
+									{hook h='displaySubHeader' mod='displaySubHeader'}
+								</div>
 							</div>
 						</div>
 					</div>
