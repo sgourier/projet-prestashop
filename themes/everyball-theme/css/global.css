@@ -8821,3 +8821,36 @@ body{
         width:45%;
         margin-bottom: 15px;
       }
+
+
+/******************************************************************/
+/*                        FICHE PRODUIT                           */
+/******************************************************************/
+      .box-cart-bottom .exclusive{
+        background-color:white !important;
+        border:none !important;
+        border-radius: 5px;
+      }
+        #homefeatured .exclusive span{
+          background:none;
+          background-image: none !important;
+          background-color:white !important;
+          border:none !important;
+          color:#212121;
+          text-shadow: none;
+          border-radius: 5px;
+          font-family: my_font;
+}
+
+
+      .page-product-box .page-product-heading{
+        background-color:#d69907 !important;
+        color:white !important;
+        border:none !important;
+      }
+        .page-product-box .odd td:first-child{
+          font-size:150%;
+        }
+        .page-product-box .even td:first-child{
+          font-size:150%;
+        }
