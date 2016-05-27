@@ -1,0 +1,35 @@
+#subHeaderContainer
+{
+    margin-top: -15px;
+    margin-bottom: 15px;
+}
+
+#subCatMenu
+{
+    padding: 10px 40px;
+    background: #777777;
+    line-height: 32px;
+}
+
+.slick-prev
+{
+    left: 10px;
+}
+
+.slick-next
+{
+    right: 10px;
+}
+
+.subHeaderlink
+{
+    color: #000;
+    font-size: 20px;
+}
+
+/*#subCatMenu .category-thumbnail:hover
+{
+    -ms-transform: rotate(7deg);
+    -webkit-transform: rotate(7deg);
+    transform: rotate(7deg) scale(1.25);
+}*/

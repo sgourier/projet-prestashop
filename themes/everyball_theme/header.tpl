@@ -86,18 +86,17 @@
 							<div class="row">
 								<div id="header_logo">
 									<a href="{if isset($force_ssl) && $force_ssl}{$base_dir_ssl}{else}{$base_dir}{/if}" title="{$shop_name|escape:'html':'UTF-8'}">
-										<img class="logo img-responsive" src="{$logo_url}" alt="{$shop_name|escape:'html':'UTF-8'}"{if isset($logo_image_width) && $logo_image_width} width="{$logo_image_width}"{/if}{if isset($logo_image_height) && $logo_image_height} height="{$logo_image_height}"{/if}/>
+										<img class="logo img-responsive" src="{$img_dir}logo.png" alt="{$shop_name|escape:'html':'UTF-8'}"{if isset($logo_image_width) && $logo_image_width} width="auto"{/if}{if isset($logo_image_height) && $logo_image_height} height="150"{/if}/>
 									</a>
 								</div>
 								<div class="headerOptions">
-									{if isset($HOOK_TOP)}{$HOOK_TOP}{/if}
-									{capture name='displayNav'}{hook h='displayNav'}{/capture}
-									{if $smarty.capture.displayNav}
-										<nav>{$smarty.capture.displayNav}</nav>
-									{/if}
-								</div>
-								<div class="subHeaderContainer">
-									{hook h='displaySubHeader' mod='displaySubHeader'}
+									<div class="headerOptions-in">
+										{if isset($HOOK_TOP)}{$HOOK_TOP}{/if}
+										{capture name='displayNav'}{hook h='displayNav'}{/capture}
+										{if $smarty.capture.displayNav}
+											<nav>{$smarty.capture.displayNav}</nav>
+										{/if}
+									</div>
 								</div>
 							</div>
 						</div>
@@ -105,7 +104,10 @@
 				</header>
 			</div>
 			<div class="columns-container">
-				<div id="columns" class="container">
+				<div id="columns" class="container body-container">
+					<div id="subHeaderContainer">
+						{hook h='displaySubHeader' mod='displaySubHeader'}
+					</div>
 					{if $page_name !='index' && $page_name !='pagenotfound'}
 						{include file="$tpl_dir./breadcrumb.tpl"}
 					{/if}

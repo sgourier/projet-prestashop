@@ -151,7 +151,7 @@
 		</div> <!-- end pb-left-column -->
 		<!-- end left infos-->
 		<!-- center infos -->
-		<div class="pb-center-column col-xs-12 col-sm-4">
+		<div class="pb-center-column col-xs-12 col-sm-4 info-product">
 			{if $product->online_only}
 				<p class="online_only">{l s='Online only'}</p>
 			{/if}

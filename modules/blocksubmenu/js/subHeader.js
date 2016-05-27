@@ -2,7 +2,13 @@
  * Created by Sylvain Gourier on 25/05/2016.
  */
 
-$("#subCatMenu").slick({
-    dots: false,
-    autoplay: false
+$(document).ready(function ()
+{
+    $("#subCatMenu").slick({
+        dots: false,
+        autoplay: false,
+        infinite: false,
+        slidesToShow: nbItemSubMenu,
+        slidesToScroll: nbItemSubMenu
+    });
 });

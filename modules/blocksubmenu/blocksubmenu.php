@@ -12,6 +12,8 @@ if(!defined('_PS_VERSION_'))
 
 class BlockSubMenu extends Module
 {
+	private $page_name;
+
 	public function __construct()
 	{
 		$this->name = 'blocksubmenu';
@@ -35,7 +37,7 @@ class BlockSubMenu extends Module
 
 	function install()
 	{
-		if(!parent::install() || !$this->registerHook('displaySubHeader') || !Configuration::updateValue("SUBMENU_ITEM_SIZE",36) || !Configuration::updateValue("SUBMENU_ITEM_NUMBER",0))
+		if(!parent::install() || !$this->registerHook('displaySubHeader') || !Configuration::updateValue("SUBMENU_ITEM_SIZE",36) || !Configuration::updateValue("SUBMENU_ITEM_NUMBER",0) || !$this->registerHook('header'))
 		{
 			return false;
 		}
@@ -44,7 +46,7 @@ class BlockSubMenu extends Module
 
 	function uninstall()
 	{
-		if(!parent::uninstall())
+		if(!Configuration::deleteByName('SUBMENU_ITEM_SIZE') || !Configuration::deleteByName('SUBMENU_ITEM_NUMBER') || !parent::uninstall())
 		{
 			return false;
 		}
@@ -54,6 +56,7 @@ class BlockSubMenu extends Module
 	public function hookDisplayHeader()
 	{
 		$this->context->controller->addCSS($this->_path.'css/slick.css', 'all');
+		$this->context->controller->addCSS($this->_path.'css/slick-theme.css', 'all');
 		$this->context->controller->addCSS($this->_path.'css/blockSubMenu.css', 'all');
 		$this->context->controller->addJS($this->_path.'js/slick.min.js', 'all');
 		$this->context->controller->addJS($this->_path.'js/subHeader.js', 'all');
@@ -64,22 +67,69 @@ class BlockSubMenu extends Module
 		if (!$this->active)
 			return;
 
+		$this->page_name = Dispatcher::getInstance()->getController();
 		$default_lang = (int)Configuration::get('PS_LANG_DEFAULT');
 
-		$category = new CategoryCore(Tools::getValue('id_category'));
 		$hasParent = false;
+		$category = new CategoryCore(Tools::getValue('id_category'));
 		$items = $category->getAllChildren($default_lang);
 
 		if($category->id_parent != null && $category->id_parent != 0)
 			$hasParent = true;
 		
 		$this->smarty->assign(array(
-			'itemSize' => Configuration::get('SUBMENU_ITEM_SIZE'),
-			'itemNumber' => Configuration::get('SUBMENU_ITEM_NUMBER'),
+			'nbItems' => Configuration::get('SUBMENU_ITEM_NUMBER'),
 			'hasParent' => $hasParent,
-			'items' => $items
+			'items' => $this->generateCategoriesMenu($items,Configuration::get('SUBMENU_ITEM_SIZE'))
 		));
-		return $this->display(__FILE__, 'payname.tpl');
+		return $this->display(__FILE__, 'blocksubmenu.tpl',$hasParent);
+	}
+
+	protected function generateCategoriesMenu($categories, $itemSize)
+	{
+		$html = '';
+
+		foreach ($categories as $key => $category) {
+
+			if ($category->level_depth > 1) {
+				$cat = new Category($category->id_category);
+				$link = Tools::HtmlEntitiesUTF8($cat->getLink());
+			} else {
+				$link = $this->context->link->getPageLink('index');
+			}
+
+			/* Whenever a category is not active we shouldnt display it to customer */
+			if ((bool)$category->active === false) {
+				continue;
+			}
+			$html .= '<div'.(($this->page_name == 'category'
+			                 && (int)Tools::getValue('id_category') == (int)$category->id_category) ? ' class="sfHoverForce"' : '').'>';
+			$html .= '<a class="subHeaderlink" href="'.$link.'" title="'.$category->name.'">';
+
+			$files = scandir(_PS_CAT_IMG_DIR_);
+			if (count(preg_grep('/^'.$category->id_category.'-([0-9])?_thumb.jpg/i', $files)) > 0) {
+				$html .= '<img class="category-thumbnail imgm" ';
+				$imgContent = "";
+				foreach ($files as $file) {
+					if (preg_match('/^'.$category->id_category.'-([0-9])?_thumb.jpg/i', $file) === 1) {
+						$imgContent = 'src="'.$this->context->link->getMediaLink(_THEME_CAT_DIR_.$file)
+						         .'" alt="'.Tools::SafeOutput($category->name).'" title="'
+						         .Tools::SafeOutput($category->name).'" width="'.$itemSize.'" height="'.$itemSize.'" >';
+					}
+				}
+				$html .= $imgContent;
+			}
+			if($imgContent == "")
+			{
+				$html .= $category->name;
+			}
+			$html .= '</a>';
+			$imgContent = "";
+
+			$html .= '</div>';
+		}
+
+		return $html;
 	}
 
 	public function getContent()
@@ -90,8 +140,10 @@ class BlockSubMenu extends Module
 		{
 			$thumbnailsSize = Tools::getValue('SUBMENU_ITEM_SIZE');
 			$nbDisplayedItems = Tools::getValue('SUBMENU_ITEM_NUMBER');
-			if ( empty($thumbnailsSize) || empty($nbDisplayedItems))
+			if ( !is_numeric($thumbnailsSize) || !is_numeric($nbDisplayedItems))
+			{
 				$output .= $this->displayError($this->l('Invalid Configuration value'));
+			}
 			else
 			{
 				Configuration::updateValue('SUBMENU_ITEM_SIZE', $thumbnailsSize);
@@ -122,7 +174,7 @@ class BlockSubMenu extends Module
 				),
 				array(
 					'type' => 'text',
-					'label' => $this->l('Number of item displayed (0 to display all possible)'),
+					'label' => $this->l('Number of item displayed'),
 					'name' => 'SUBMENU_ITEM_NUMBER',
 					'required' => true
 				),
