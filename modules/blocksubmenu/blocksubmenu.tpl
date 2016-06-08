@@ -1,4 +1,4 @@
-{if $hasParent == true && $items != ""}
+{if $items != ""}
     <div id="subCatMenu">
         {$items}
     </div>

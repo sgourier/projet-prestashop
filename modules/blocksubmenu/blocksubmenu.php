@@ -37,7 +37,7 @@ class BlockSubMenu extends Module
 
 	function install()
 	{
-		if(!parent::install() || !$this->registerHook('displaySubHeader') || !Configuration::updateValue("SUBMENU_ITEM_SIZE",36) || !Configuration::updateValue("SUBMENU_ITEM_NUMBER",0) || !$this->registerHook('header'))
+		if(!parent::install() || !$this->registerHook('displaySubHeader') || !Configuration::updateValue("SUBMENU_ITEM_SIZE",36) || !Configuration::updateValue("SUBMENU_ITEM_NUMBER",0) || !Configuration::updateValue("SUBMENU_CATEGORY_NUMBER",-1) || !$this->registerHook('header'))
 		{
 			return false;
 		}
@@ -46,7 +46,7 @@ class BlockSubMenu extends Module
 
 	function uninstall()
 	{
-		if(!Configuration::deleteByName('SUBMENU_ITEM_SIZE') || !Configuration::deleteByName('SUBMENU_ITEM_NUMBER') || !parent::uninstall())
+		if(!Configuration::deleteByName('SUBMENU_ITEM_SIZE') || !Configuration::deleteByName('SUBMENU_ITEM_NUMBER') || !Configuration::deleteByName('SUBMENU_CATEGORY_NUMBER') || !parent::uninstall())
 		{
 			return false;
 		}
@@ -70,19 +70,14 @@ class BlockSubMenu extends Module
 		$this->page_name = Dispatcher::getInstance()->getController();
 		$default_lang = (int)Configuration::get('PS_LANG_DEFAULT');
 
-		$hasParent = false;
-		$category = new CategoryCore(Tools::getValue('id_category'));
+		$category = new CategoryCore(Configuration::get('SUBMENU_CATEGORY_NUMBER'));
 		$items = $category->getAllChildren($default_lang);
-
-		if($category->id_parent != null && $category->id_parent != 0)
-			$hasParent = true;
 		
 		$this->smarty->assign(array(
 			'nbItems' => Configuration::get('SUBMENU_ITEM_NUMBER'),
-			'hasParent' => $hasParent,
 			'items' => $this->generateCategoriesMenu($items,Configuration::get('SUBMENU_ITEM_SIZE'))
 		));
-		return $this->display(__FILE__, 'blocksubmenu.tpl',$hasParent);
+		return $this->display(__FILE__, 'blocksubmenu.tpl');
 	}
 
 	protected function generateCategoriesMenu($categories, $itemSize)
@@ -140,7 +135,8 @@ class BlockSubMenu extends Module
 		{
 			$thumbnailsSize = Tools::getValue('SUBMENU_ITEM_SIZE');
 			$nbDisplayedItems = Tools::getValue('SUBMENU_ITEM_NUMBER');
-			if ( !is_numeric($thumbnailsSize) || !is_numeric($nbDisplayedItems))
+			$idCategory = Tools::getValue('SUBMENU_CATEGORY_NUMBER');
+			if (!is_numeric($thumbnailsSize) || !is_numeric($idCategory) || !is_numeric($nbDisplayedItems))
 			{
 				$output .= $this->displayError($this->l('Invalid Configuration value'));
 			}
@@ -148,6 +144,7 @@ class BlockSubMenu extends Module
 			{
 				Configuration::updateValue('SUBMENU_ITEM_SIZE', $thumbnailsSize);
 				Configuration::updateValue('SUBMENU_ITEM_NUMBER', $nbDisplayedItems);
+				Configuration::updateValue('SUBMENU_CATEGORY_NUMBER', $idCategory);
 				$output .= $this->displayConfirmation($this->l('Settings updated'));
 			}
 		}
@@ -159,7 +156,23 @@ class BlockSubMenu extends Module
 	{
 		// Get default language
 		$default_lang = (int)Configuration::get('PS_LANG_DEFAULT');
+		
+		$categories = CategoryCore::getCategories();
 
+		$categoriesOne = array(
+			array("key" => -1, "name" => $this->l('Choose a category'))
+		);
+
+		foreach ($categories as $upCategory)
+		{
+			foreach ($upCategory as $category)
+			{
+				if($category["infos"]["level_depth"] == 2)
+				{
+					$categoriesOne[] = array("key" => $category["infos"]["id_category"], "name" => $category["infos"]["name"]);
+				}
+			}
+		}
 		$fields_form[0]['form'] = array(
 			'legend' => array(
 				'title' => $this->l(''),
@@ -176,6 +189,17 @@ class BlockSubMenu extends Module
 					'type' => 'text',
 					'label' => $this->l('Number of item displayed'),
 					'name' => 'SUBMENU_ITEM_NUMBER',
+					'required' => true
+				),
+				array(
+					'type' => 'select',
+					'label' => $this->l('Sub-categories category to display'),
+					'name' => 'SUBMENU_CATEGORY_NUMBER',
+					'options' => array(
+						"query" => $categoriesOne,
+						"id" => "key",
+						"name" => "name"
+					),
 					'required' => true
 				),
 			),
@@ -216,17 +240,8 @@ class BlockSubMenu extends Module
 		// Load current value
 		$helper->fields_value['SUBMENU_ITEM_SIZE'] = Configuration::get('SUBMENU_ITEM_SIZE');
 		$helper->fields_value['SUBMENU_ITEM_NUMBER'] = Configuration::get('SUBMENU_ITEM_NUMBER');
+		$helper->fields_value['SUBMENU_CATEGORY_NUMBER'] = Configuration::get('SUBMENU_CATEGORY_NUMBER');
 
 		return $helper->generateForm($fields_form);
 	}
-
-	/* getCategories arguments
-	*  arg 1 - id of the default language
-	*  arg 2 - true | false - Only active categories
-	*  arg 3 - true | false - Para indicar que no es un pedido
-	*
-	*  Without arguments the result array is confused [/font]
-	[font=courier new,courier,monospace]*/
-
-	//$cats = Category::getCategories( (int)($cookie->id_lang), true, false  ) ;
 }

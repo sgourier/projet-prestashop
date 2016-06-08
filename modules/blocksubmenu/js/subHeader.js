@@ -8,7 +8,7 @@ $(document).ready(function ()
         dots: false,
         autoplay: false,
         infinite: false,
-        slidesToShow: nbItemSubMenu,
-        slidesToScroll: nbItemSubMenu
+        slidesToShow: Math.floor(nbItemSubMenu/2),
+        slidesToScroll: Math.floor(nbItemSubMenu/2)
     });
 });

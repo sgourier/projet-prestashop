@@ -105,11 +105,13 @@
 			</div>
 			<div class="columns-container">
 				<div id="columns" class="container body-container">
-					<div id="subHeaderContainer">
-						{hook h='displaySubHeader' mod='displaySubHeader'}
-					</div>
 					{if $page_name !='index' && $page_name !='pagenotfound'}
 						{include file="$tpl_dir./breadcrumb.tpl"}
+					{/if}
+					{if $page_name =='index'}
+						<div id="subHeaderContainer">
+							{hook h='displaySubHeader' mod='displaySubHeader'}
+						</div>
 					{/if}
 					<div id="slider_row" class="row">
 						{capture name='displayTopColumn'}{hook h='displayTopColumn'}{/capture}
