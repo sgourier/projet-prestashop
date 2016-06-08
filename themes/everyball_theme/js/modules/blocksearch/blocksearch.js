@@ -33,6 +33,11 @@ $(document).ready(function()
 			e.preventDefault();
 			$("#search_block_top #search_query_top").slideDown();
 		}
+		else if($("#search_block_top #search_query_top").val() == "")
+		{
+			e.preventDefault();
+			$("#search_block_top #search_query_top").slideUp();
+		}
 	});
 
 	if (typeof blocksearch_type == 'undefined')
