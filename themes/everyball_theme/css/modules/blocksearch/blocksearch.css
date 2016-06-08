@@ -22,7 +22,11 @@
     height: 45px;
     background: #fbfbfb;
     margin-right: 1px;
-    display: none;}
+    display: none;
+    position: absolute;
+    width: 250px;
+    top: 50px;
+  }
 
 .ac_results {
   background: #fff;

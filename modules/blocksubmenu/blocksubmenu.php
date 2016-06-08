@@ -70,9 +70,15 @@ class BlockSubMenu extends Module
 		$this->page_name = Dispatcher::getInstance()->getController();
 		$default_lang = (int)Configuration::get('PS_LANG_DEFAULT');
 
-		$category = new CategoryCore(Configuration::get('SUBMENU_CATEGORY_NUMBER'));
-		$items = $category->getAllChildren($default_lang);
-		
+		$idCat = Configuration::get('SUBMENU_CATEGORY_NUMBER');
+
+		$items = array();
+		if($idCat != -1)
+		{
+			$category = new CategoryCore($idCat);
+			$items = $category->getAllChildren($default_lang);
+		}
+
 		$this->smarty->assign(array(
 			'nbItems' => Configuration::get('SUBMENU_ITEM_NUMBER'),
 			'items' => $this->generateCategoriesMenu($items,Configuration::get('SUBMENU_ITEM_SIZE'))

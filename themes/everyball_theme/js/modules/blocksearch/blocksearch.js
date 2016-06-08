@@ -26,6 +26,15 @@
 var instantSearchQueries = [];
 $(document).ready(function()
 {
+	$('#searchButton').on('click',function (e)
+	{
+		if(!$("#search_block_top #search_query_top").is(':visible'))
+		{
+			e.preventDefault();
+			$("#search_block_top #search_query_top").slideDown();
+		}
+	});
+
 	if (typeof blocksearch_type == 'undefined')
 		return;
 
