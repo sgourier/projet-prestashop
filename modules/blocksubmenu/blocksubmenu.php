@@ -55,11 +55,7 @@ class BlockSubMenu extends Module
 
 	public function hookDisplayHeader()
 	{
-		$this->context->controller->addCSS($this->_path.'css/slick.css', 'all');
-		$this->context->controller->addCSS($this->_path.'css/slick-theme.css', 'all');
 		$this->context->controller->addCSS($this->_path.'css/blockSubMenu.css', 'all');
-		$this->context->controller->addJS($this->_path.'js/slick.min.js', 'all');
-		$this->context->controller->addJS($this->_path.'js/subHeader.js', 'all');
 	}
 	
 	public function hookDisplaySubHeader()
@@ -103,8 +99,6 @@ class BlockSubMenu extends Module
 			if ((bool)$category->active === false) {
 				continue;
 			}
-			$html .= '<div'.(($this->page_name == 'category'
-			                 && (int)Tools::getValue('id_category') == (int)$category->id_category) ? ' class="sfHoverForce"' : '').'>';
 			$html .= '<a class="subHeaderlink" href="'.$link.'" title="'.$category->name.'">';
 
 			$files = scandir(_PS_CAT_IMG_DIR_);
@@ -127,7 +121,6 @@ class BlockSubMenu extends Module
 			$html .= '</a>';
 			$imgContent = "";
 
-			$html .= '</div>';
 		}
 
 		return $html;
