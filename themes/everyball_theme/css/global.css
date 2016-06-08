@@ -8695,7 +8695,6 @@ body{
   padding:0 !important;
 }
 
-
 .button.ajax_add_to_cart_button{
   background:none !important;
   border-radius: 5px;
@@ -8860,4 +8859,61 @@ body{
         }
         .breadcrumb{
           margin-left:15px !important;
+          margin-top:20px;
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/******************************************************************/
+/*                          RESPONSIVE                            */
+/******************************************************************/
+
+@media (max-width: 1199px) {
+
+  .ajax_block_product {
+    width: 100% !important;
+  }
+
+  #search_block_top{
+    width:25%;
+  }
+
+  #subHeaderContainer{
+    display:none;
+  }
+
+  #footer section{
+    width:100% !important;
+  }
+
+  .info-product{
+    width:100%;
+    float:none;
+  }
+}
+
