@@ -5718,7 +5718,6 @@ textarea {
 
 #columns {
   position: relative;
-  padding:15px;
 }
 
 #index .tab-content {
@@ -8637,7 +8636,7 @@ body{
   font-family:my_font !important;
   background-image:url("../img/body-background.jpg");
   background-position: center;
-  background-size: auto 100%;
+  background-size: 100% auto;
   background-attachment: fixed;
 }
 
