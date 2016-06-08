@@ -8849,3 +8849,15 @@ body{
         .page-product-box .even td:first-child{
           font-size:150%;
         }
+
+
+
+
+
+        .product_list,.content_sortPagiBar,#subcategories,.page-heading{
+          padding-left:15px !important;
+          padding-right:15px !important;
+        }
+        .breadcrumb{
+          margin-left:15px !important;
+        }
