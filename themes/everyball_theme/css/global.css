@@ -5718,8 +5718,7 @@ textarea {
 
 #columns {
   position: relative;
-  padding-bottom: 50px;
-  padding-top: 15px;
+  padding:15px;
 }
 
 #index .tab-content {
@@ -7242,7 +7241,9 @@ div.star a:hover {
     .footer-container #footer ul.row {
       position: static; }
     .footer-container #footer .footer-block {
-      margin-top: 45px; }
+      margin-top: 45px;
+      width:25%;
+    }
       @media (max-width: 767px) {
         .footer-container #footer .footer-block {
           margin-top: 20px; } }
@@ -7277,7 +7278,7 @@ div.star a:hover {
         font-weight: bold;
         text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.4); }
     .footer-container #footer #block_contact_infos {
-      border-left: 1px solid #515151; }
+       }
       @media (max-width: 767px) {
         .footer-container #footer #block_contact_infos {
           border: none; } }
