@@ -25,7 +25,7 @@
 {if isset($HOOK_HOME_TAB_CONTENT) && $HOOK_HOME_TAB_CONTENT|trim}
     {if isset($HOOK_HOME_TAB) && $HOOK_HOME_TAB|trim}
 		<div id="home-page-tabs" class="nav nav-tabs clearfix title-part">
-			Les plus populaires
+			Les nouveaux produits
 		</div>
 	{/if}
 	<div class="tab-content">{$HOOK_HOME_TAB_CONTENT}</div>
