@@ -2,13 +2,14 @@
 								Categories Page Styles
 ************************************************************************************************ */
 .content_scene_cat {
-  border-top: 5px solid #333;
   color: #d7d7d7;
   line-height: 19px;
-  margin: 0 0 26px 0; }
+  margin: 0 0 26px 0;
+  background: #FFF;
+}
   .content_scene_cat .content_scene_cat_bg {
     padding: 18px 10px 10px 42px;
-    background-color: #464646 !important; }
+    min-height: 0 !important;}
     @media (max-width: 1199px) {
       .content_scene_cat .content_scene_cat_bg {
         padding: 10px 10px 10px 15px; } }
