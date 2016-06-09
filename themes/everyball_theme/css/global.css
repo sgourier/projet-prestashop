@@ -8805,6 +8805,8 @@ body{
   #social_block ul{
     padding-left:10%;
     margin-top:20px;
+    overflow: hidden;
+    padding-bottom: 20px;
   }
     #social_block ul li{
       width:20%;
