@@ -8856,7 +8856,7 @@ body{
 
 
 
-        .product_list,.content_sortPagiBar,#subcategories,.page-heading{
+        .product_list,.content_sortPagiBar,#subcategories,.page-heading,.info-account,.addresses-lists,.footer_links{
           padding-left:15px !important;
           padding-right:15px !important;
         }
@@ -8864,9 +8864,6 @@ body{
           margin-left:15px !important;
           margin-top:20px;
         }
-
-
-
 
 
 
