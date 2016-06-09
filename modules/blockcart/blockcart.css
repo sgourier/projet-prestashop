@@ -119,6 +119,7 @@
 	clear:both;
 	display:none;
 	z-index:99;
+	width:none !important;
 }
 .layer_cart_overlay {
 	background-color:#000;
